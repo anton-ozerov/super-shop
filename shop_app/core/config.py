@@ -1,7 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv(".env.local")
+load_dotenv(".env")
+if os.path.exists(".env.local"):
+    load_dotenv(".env.local", override=True)
 
 DB_NAME = str(os.getenv("DB_NAME"))
 DB_USER = str(os.getenv("DB_USER"))
