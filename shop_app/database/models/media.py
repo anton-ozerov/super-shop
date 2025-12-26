@@ -46,7 +46,7 @@ class MediaVariant(Base):
         PG_UUID(as_uuid=True),
         ForeignKey(
             'media.id',
-            name='media_variant_media_id_foreign_key',
+            name='media_variant_media_id_fk',
             ondelete='CASCADE'),
         nullable=False,
     )
@@ -82,7 +82,7 @@ class MediaLink(Base):
         PG_UUID(as_uuid=True),
         ForeignKey(
             'media.id',
-            name='media_link_media_id_foreign_key',
+            name='media_link_media_id_fk',
             ondelete='CASCADE',
         ),
         nullable=False,
