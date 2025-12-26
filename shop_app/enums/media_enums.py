@@ -18,3 +18,4 @@ class MediaVariantFormat(enum.Enum):
 class EntityType(enum.Enum):
     product = "product"
     category = "category"
+    review = "review"
