@@ -27,6 +27,7 @@ select = [
     "DTZ",  # flake8-datetimez
     "ERA",  # eradicate
     "FURB", # refurb
+    "FAST", # flake8-fastapi
 ]
 # Игнорирование конкретных предупреждений линтера
 ignore = [
