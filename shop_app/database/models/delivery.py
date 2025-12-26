@@ -2,6 +2,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID, JSONB
 
+from typing import Any
 from shop_app.database.database import Base
 import uuid
 
@@ -17,7 +18,7 @@ class Delivery(Base):
     status: Mapped[str] = mapped_column(default='NOT_REQUIRE', nullable=False)
     comment: Mapped[str | None] = mapped_column(nullable=True)
     delivery_system: Mapped[str] = mapped_column(default='PICKUP', nullable=False)
-    delivery_info: Mapped[str | None] = mapped_column(JSONB, nullable=True)
+    delivery_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
     foreign_id: Mapped[str | None] = mapped_column(nullable=True)
 
     order: Mapped['Order'] = relationship(
