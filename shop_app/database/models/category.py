@@ -1,27 +1,63 @@
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import ForeignKey, text
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 
+import uuid
 from shop_app.database.database import Base
 
 
 class Category(Base):
     __tablename__ = 'category'
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
-    parent_category_id: Mapped[int | None] = mapped_column(
-        ForeignKey('category.id', ondelete='CASCADE'),
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text('gen_random_uuid()'),
     )
-    sort_order: Mapped[int]
+    name: Mapped[str] = mapped_column(nullable=False)
+    parent_category_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey(
+            'category.id',
+            name='category_parent_category_id_fk',
+            ondelete='CASCADE',
+        ),
+        nullable=True,
+    )
+    sort_order: Mapped[int] = mapped_column(nullable=False)
+
+    parent_category: Mapped['Category'] = relationship(
+        back_populates='category',
+    )
+    products: Mapped[list['Product']] = relationship(
+        back_populates='product',
+        secondary='product_category_assignment',
+    )
 
 
 class ProductCategoryAssignment(Base):
     __tablename__ = 'product_category_assignment'
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    product_id: Mapped[int] = mapped_column(
-        ForeignKey('product.id', ondelete='CASCADE'),
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
         primary_key=True,
+        server_default=text('gen_random_uuid()'),
     )
-
-# Not ready yet
+    product_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey(
+            'product.id',
+            name='product_category_assignment_product_id_fk',
+            ondelete='CASCADE',
+        ),
+        nullable=False,
+    )
+    category_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey(
+            'category.id',
+            name='product_category_assignment_category_id_fk',
+            ondelete='CASCADE',
+        ),
+        nullable=False,
+    )
