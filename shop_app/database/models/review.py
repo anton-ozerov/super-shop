@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, SmallInteger, text
+from sqlalchemy import ForeignKey, SmallInteger, text, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 
@@ -9,6 +9,13 @@ from shop_app.database.database import Base
 class Review(Base):
     # TODO: stars from 1 to 5
     __tablename__ = 'review'
+
+    __table_args__ = (
+        CheckConstraint(
+            'stars >= 1 and stars <= 5',
+            name='check_review_stars',
+        )
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
