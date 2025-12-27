@@ -9,6 +9,7 @@ from shop_app.enums import DiscountType
 
 
 class Promocode(Base):
+    # TODO: included and excluded validation
     __tablename__ = 'promocode'
 
     id: Mapped[uuid.UUID] = mapped_column(

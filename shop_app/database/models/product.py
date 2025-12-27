@@ -110,6 +110,7 @@ class ProductParameter(Base):
     )
 
 class ProductCharacteristic(Base):
+    # TODO: is_visible, is_for_filter validation
     __tablename__ = 'product_characteristic'
 
     id: Mapped[uuid.UUID] = mapped_column(
