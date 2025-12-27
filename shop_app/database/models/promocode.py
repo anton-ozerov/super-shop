@@ -1,4 +1,4 @@
-from sqlalchemy import SmallInteger, text
+from sqlalchemy import SmallInteger, text, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import JSONB, UUID as PG_UUID, ENUM
 
@@ -11,6 +11,13 @@ from shop_app.enums import DiscountType
 class Promocode(Base):
     # TODO: included and excluded validation
     __tablename__ = 'promocode'
+
+    __table_args__ = (
+        CheckConstraint(
+            'NOT (included_products_ids IS NOT NULL AND excluded_products_ids IS NOT NULL)',
+            name='check_promocode'
+        )
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
