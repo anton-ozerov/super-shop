@@ -110,7 +110,6 @@ class ProductParameter(Base):
     )
 
 class ProductCharacteristic(Base):
-    # TODO: is_visible, is_for_filter validation
     __tablename__ = 'product_characteristic'
 
     __table_args__ = (

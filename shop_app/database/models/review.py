@@ -7,7 +7,6 @@ from shop_app.database.database import Base
 
 
 class Review(Base):
-    # TODO: stars from 1 to 5
     __tablename__ = 'review'
 
     __table_args__ = (

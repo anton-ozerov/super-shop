@@ -9,7 +9,6 @@ from shop_app.enums import DiscountType
 
 
 class Promocode(Base):
-    # TODO: included and excluded validation
     __tablename__ = 'promocode'
 
     __table_args__ = (
