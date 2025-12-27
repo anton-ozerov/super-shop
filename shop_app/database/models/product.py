@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, text
+from sqlalchemy import ForeignKey, text, CheckConstraint
 from sqlalchemy.dialects.postgresql import JSONB, UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -112,6 +112,13 @@ class ProductParameter(Base):
 class ProductCharacteristic(Base):
     # TODO: is_visible, is_for_filter validation
     __tablename__ = 'product_characteristic'
+
+    __table_args__ = (
+        CheckConstraint(
+            'NOT (is_visible = false AND is_for_filter = false)',
+            name='check_visible_filter_characteristic'
+        )
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
