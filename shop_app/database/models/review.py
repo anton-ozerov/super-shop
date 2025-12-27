@@ -32,7 +32,7 @@ class Review(Base):
         ),
         nullable=False,
     )
-    start: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    stars: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     comment: Mapped[str | None] = mapped_column(nullable=True)
 
     product_parameter: Mapped['ProductParameter'] = relationship(
