@@ -1,5 +1,3 @@
-from promocode import Promocode
-
 from .category import Category
 from .delivery import Delivery
 from .group import Group
@@ -11,7 +9,8 @@ from .payment import Payment
 from .product import Product, ProductCharacteristic, ProductDescription, ProductParameter
 from .product_category_assignment import ProductCategoryAssignment
 from .product_mark_assignment import ProductMarkAssignment
-from .product_tag import ProductTag
+from .product_tag_assignment import ProductTagAssignment
+from .promocode import Promocode
 from .review import Review
 from .tag import Tag
 from .unit_measurement import UnitMeasurement
@@ -35,7 +34,7 @@ __all__ = [
     "ProductDescription",
     "ProductMarkAssignment",
     "ProductParameter",
-    "ProductTag",
+    "ProductTagAssignment",
     "Promocode",
     "Review",
     "Tag",

@@ -7,8 +7,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 from shop_app.database.database import Base
 
 
-class ProductTag(Base):
-    __tablename__ = "product_tag"
+class ProductTagAssignment(Base):
+    __tablename__ = "product_tag_assignment"
 
     id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
@@ -19,7 +19,7 @@ class ProductTag(Base):
         PG_UUID(as_uuid=True),
         ForeignKey(
             "product.id",
-            name="product_tag_product_id_fk",
+            name="product_tag_assignment_product_id_fk",
             ondelete="CASCADE",
         ),
         nullable=False,
@@ -28,7 +28,7 @@ class ProductTag(Base):
         PG_UUID(as_uuid=True),
         ForeignKey(
             "tag.id",
-            name="product_tag_tag_id_fk",
+            name="product_tag_assignment_tag_id_fk",
             ondelete="CASCADE",
         ),
         nullable=False,

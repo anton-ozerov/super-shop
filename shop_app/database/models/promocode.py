@@ -17,8 +17,11 @@ if TYPE_CHECKING:
 class Promocode(Base):
     __tablename__ = "promocode"
 
-    __table_args__ = CheckConstraint(
-        "NOT (included_products_ids IS NOT NULL AND excluded_products_ids IS NOT NULL)", name="check_promocode"
+    __table_args__ = (
+        CheckConstraint(
+            "NOT (included_products_ids IS NOT NULL AND excluded_products_ids IS NOT NULL)",
+            name="check_promocode",
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(

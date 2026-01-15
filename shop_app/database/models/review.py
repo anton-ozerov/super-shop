@@ -15,9 +15,11 @@ if TYPE_CHECKING:
 class Review(Base):
     __tablename__ = "review"
 
-    __table_args__ = CheckConstraint(
-        "stars >= 1 and stars <= 5",
-        name="check_review_stars",
+    __table_args__ = (
+        CheckConstraint(
+            "stars >= 1 and stars <= 5",
+            name="check_review_stars",
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
@@ -37,7 +39,7 @@ class Review(Base):
     parameter_id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey(
-            "parameter.id",
+            "product_parameter.id",
             name="review_parameter_id_fk",
             ondelete="CASCADE",
         ),

@@ -2,6 +2,7 @@ import uuid
 from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -21,7 +22,7 @@ class Payment(Base):
     )
     status: Mapped[str] = mapped_column(default="PENDING", nullable=False)
     foreign_id: Mapped[str | None] = mapped_column(nullable=True)
-    payment_info: Mapped[dict[str, Any] | None] = mapped_column(nullable=True)
+    payment_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
     system: Mapped[str] = mapped_column(nullable=False)
 
     order: Mapped["Order"] = relationship(

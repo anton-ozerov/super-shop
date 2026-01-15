@@ -26,9 +26,9 @@ class UserPromocodeAssignment(Base):
     promocode_id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey(
-            "user.id",
+            "promocode.id",
             name="user_promocode_assignment_promocode_id_foreign_key",
             ondelete="CASCADE",
         ),
     )
-    is_refunded: Mapped[bool] = mapped_column(default=False, nullable=True)
+    is_refunded: Mapped[bool] = mapped_column(default=False, nullable=False)

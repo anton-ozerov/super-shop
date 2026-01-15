@@ -24,5 +24,5 @@ class Tag(Base):
 
     products: Mapped[list["Product"]] = relationship(
         back_populates="product",
-        secondary="product_tags",
+        secondary="product_tag_assignment",
     )

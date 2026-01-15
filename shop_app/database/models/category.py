@@ -20,7 +20,7 @@ class Category(Base):
         server_default=text("gen_random_uuid()"),
     )
     name: Mapped[str] = mapped_column(nullable=False)
-    parent_category_id: Mapped[uuid.UUID] = mapped_column(
+    parent_category_id: Mapped[uuid.UUID | None] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey(
             "category.id",

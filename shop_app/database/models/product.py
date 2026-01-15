@@ -112,7 +112,7 @@ class ProductParameter(Base):
     is_disabled: Mapped[bool] = mapped_column(default=False, nullable=False)
     is_deleted: Mapped[bool] = mapped_column(default=False, nullable=False)
     sort_order: Mapped[int] = mapped_column(nullable=False)
-    additional_info: Mapped[dict[str, Any] | None] = mapped_column(nullable=True)
+    additional_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
 
     product: Mapped["Product"] = relationship(
         back_populates="product",
@@ -125,8 +125,11 @@ class ProductParameter(Base):
 class ProductCharacteristic(Base):
     __tablename__ = "product_characteristic"
 
-    __table_args__ = CheckConstraint(
-        "NOT (is_visible = false AND is_for_filter = false)", name="check_visible_filter_characteristic"
+    __table_args__ = (
+        CheckConstraint(
+            "NOT (is_visible = false AND is_for_filter = false)",
+            name="check_visible_filter_characteristic",
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
@@ -141,7 +144,7 @@ class ProductCharacteristic(Base):
     is_text_value: Mapped[bool] = mapped_column(nullable=False)
     is_visible: Mapped[bool] = mapped_column(nullable=False)
     is_for_filter: Mapped[bool] = mapped_column(nullable=False)
-    unit_measurement_id: Mapped[uuid.UUID] = mapped_column(
+    unit_measurement_id: Mapped[uuid.UUID | None] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey(
             "unit_measurement.id",
