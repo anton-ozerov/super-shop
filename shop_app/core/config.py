@@ -6,10 +6,16 @@ load_dotenv(".env")
 if os.path.exists(".env.local"):
     load_dotenv(".env.local", override=True)
 
+# Environment
+ENVIRONMENT = str(os.getenv("ENVIRONMENT", "dev"))  # dev, test, prod
+
+# Database
 DB_NAME = str(os.getenv("DB_NAME"))
 DB_USER = str(os.getenv("DB_USER"))
 DB_PASSWORD = str(os.getenv("DB_PASSWORD"))
 DB_HOST = str(os.getenv("DB_HOST"))
 DB_PORT = str(os.getenv("DB_PORT"))
-
 DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+# Logging
+LOG_DIR = os.getenv("LOG_DIR", "logs")
