@@ -3,11 +3,7 @@ from fastapi import FastAPI
 
 from shop_app.routers import health_router
 
-app = FastAPI(
-    title="Pet Project",
-    description="API for Pet Project",
-    version="1.0.0"
-)
+app = FastAPI(title="Pet Project", description="API for Pet Project", version="1.0.0")
 
 # кастомные middleware
 
