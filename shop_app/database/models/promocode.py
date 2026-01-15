@@ -1,27 +1,30 @@
-from sqlalchemy import SmallInteger, text, CheckConstraint
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.dialects.postgresql import JSONB, UUID as PG_UUID, ENUM
+import datetime
+import uuid
+from typing import TYPE_CHECKING, Any
 
-import datetime, uuid
-from typing import Any
+from sqlalchemy import CheckConstraint, SmallInteger, text
+from sqlalchemy.dialects.postgresql import ENUM, JSONB
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from shop_app.database.database import Base
 from shop_app.enums import DiscountType
 
+if TYPE_CHECKING:
+    from shop_app.database.models.user import User
+
 
 class Promocode(Base):
-    __tablename__ = 'promocode'
+    __tablename__ = "promocode"
 
-    __table_args__ = (
-        CheckConstraint(
-            'NOT (included_products_ids IS NOT NULL AND excluded_products_ids IS NOT NULL)',
-            name='check_promocode'
-        )
+    __table_args__ = CheckConstraint(
+        "NOT (included_products_ids IS NOT NULL AND excluded_products_ids IS NOT NULL)", name="check_promocode"
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         primary_key=True,
-        server_default=text('gen_random_uuid()'),
+        server_default=text("gen_random_uuid()"),
     )
     value: Mapped[str] = mapped_column(nullable=False)
     quantity: Mapped[int] = mapped_column(nullable=False)
@@ -31,7 +34,7 @@ class Promocode(Base):
     discount_type: Mapped[DiscountType] = mapped_column(
         ENUM(
             DiscountType,
-            name='discount_type_enum',
+            name="discount_type_enum",
             check_constraint=True,
         ),
         nullable=False,
@@ -39,7 +42,7 @@ class Promocode(Base):
     included_products_ids: Mapped[list[Any] | None] = mapped_column(JSONB, nullable=True)
     excluded_products_ids: Mapped[list[Any] | None] = mapped_column(JSONB, nullable=True)
 
-    users: Mapped['User'] = relationship(
-        back_populates='user',
-        secondary='user_promocode_assignment',
+    users: Mapped["User"] = relationship(
+        back_populates="user",
+        secondary="user_promocode_assignment",
     )
