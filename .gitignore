@@ -5,6 +5,7 @@
 .env.local
 .pytest_cache
 /logs
+.ruff_cache
 
 **/__pycache__/
 *.pyc
