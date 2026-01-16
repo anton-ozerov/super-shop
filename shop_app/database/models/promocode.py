@@ -46,6 +46,6 @@ class Promocode(Base):
     excluded_products_ids: Mapped[list[Any] | None] = mapped_column(JSONB, nullable=True)
 
     users: Mapped["User"] = relationship(
-        back_populates="user",
+        back_populates="promocodes",
         secondary="user_promocode_assignment",
     )
