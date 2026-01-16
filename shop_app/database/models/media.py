@@ -82,7 +82,7 @@ class MediaLink(Base):
         primary_key=True,
         server_default=text("gen_random_uuid()"),
     )
-    media_id: Mapped[int] = mapped_column(
+    media_id: Mapped[uuid.UUID] = mapped_column(
         PG_UUID(as_uuid=True),
         ForeignKey(
             "media.id",
@@ -108,5 +108,5 @@ class MediaLink(Base):
     sort_order: Mapped[int] = mapped_column(nullable=False)
 
     media: Mapped["Media"] = relationship(
-        back_populates="media_variant",
+        back_populates="media_links",
     )
