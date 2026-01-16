@@ -49,8 +49,8 @@ class Order(Base):
     comment: Mapped[str | None] = mapped_column(nullable=True)
 
     payment: Mapped["Payment"] = relationship(
-        back_populates="payment",
+        back_populates="order",
     )
     delivery: Mapped["Delivery"] = relationship(
-        back_populates="delivery",
+        back_populates="order",
     )
