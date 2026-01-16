@@ -56,3 +56,7 @@ indent-style = "space"
 # Дополнительные настройки для плагинов
 [lint.flake8-bandit]
 check-typed-exception = true # Проверка типизированных исключений
+
+[lint.per-file-ignores]
+# Отключение правила S101 (assert_used) в тестах
+"tests/*" = ["S101"]

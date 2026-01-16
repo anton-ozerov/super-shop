@@ -1,4 +1,5 @@
 import logging
+from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
@@ -10,14 +11,39 @@ from shop_app.routers import health_router
 setup_logging()
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Pet Project", description="API for Pet Project", version="1.0.0")
 
-# кастомные middleware
-app.middleware("http")(access_log_middleware)
-app.middleware("http")(request_id_middleware)
+@asynccontextmanager
+async def lifespan(app: FastAPI):  # noqa RUF029
+    """Контекстный менеджер для lifespan приложения"""
+    logger.info("Starting up the FastAPI application", extra={"service": "lifespan"})
+    try:
+        yield
+    finally:
+        ...
+        logger.info("Shutting down the FastAPI application", extra={"service": "lifespan"})
 
-# routers
-app.include_router(health_router)
+
+def create_app() -> FastAPI:
+    """Фабрика для создания FastAPI приложения"""
+    app_ = FastAPI(
+        title="Pet Project",
+        description="API for Pet Project",
+        version="1.0.0",
+        lifespan=lifespan,
+    )
+
+    # кастомные middleware
+    app_.middleware("http")(access_log_middleware)
+    app_.middleware("http")(request_id_middleware)
+
+    # routers
+    app_.include_router(health_router)
+
+    return app_
+
+
+app = create_app()
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
