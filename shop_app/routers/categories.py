@@ -8,7 +8,7 @@ from shop_app.database import get_async_session
 from shop_app.schemas import CategoriesAll
 from shop_app.services import CategoryService
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 categories_router = APIRouter(
     tags=["categories"],
@@ -19,7 +19,7 @@ categories_router = APIRouter(
 @categories_router.get("/", response_model=CategoriesAll)
 async def categories(session: Annotated[AsyncSession, Depends(get_async_session)]):
     """All categories endpoint"""
-    logger.info("Receiving all categories")
+    logger.debug("Receiving all categories")
     try:
         cat_service = CategoryService(session=session)
         cats = await cat_service.get_all_categories()

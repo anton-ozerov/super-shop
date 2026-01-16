@@ -32,8 +32,14 @@ class Category(Base):
     sort_order: Mapped[int] = mapped_column(nullable=False)
 
     parent_category: Mapped["Category"] = relationship(
-        back_populates="category",
+        back_populates="child_categories",
+        remote_side=[id],
+        foreign_keys=[parent_category_id],
     )
+    child_categories: Mapped[list["Category"]] = relationship(
+        back_populates="parent_category",
+    )
+
     products: Mapped[list["Product"]] = relationship(
         back_populates="product",
         secondary="product_category_assignment",
