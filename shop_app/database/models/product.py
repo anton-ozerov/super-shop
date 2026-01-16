@@ -36,7 +36,7 @@ class Product(Base):
         secondary="group_product_assignment",
     )
     categories: Mapped[list["Category"]] = relationship(
-        back_populates="product",
+        back_populates="products",
         secondary="product_category_assignment",
     )
     tags: Mapped[list["Tag"]] = relationship(
