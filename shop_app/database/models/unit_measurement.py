@@ -32,5 +32,5 @@ class UnitMeasurement(Base):
     quantity_in_min_unit: Mapped[int | None] = mapped_column(nullable=True)
 
     product_characteristics: Mapped[list["ProductCharacteristic"]] = relationship(
-        back_populates="product_characteristic",
+        back_populates="unit_measurement",
     )
