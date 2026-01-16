@@ -41,6 +41,6 @@ class Category(Base):
     )
 
     products: Mapped[list["Product"]] = relationship(
-        back_populates="product",
+        back_populates="category",
         secondary="product_category_assignment",
     )
