@@ -33,10 +33,10 @@ class Media(Base):
     additional_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
 
     media_variants: Mapped[list["MediaVariant"]] = relationship(
-        back_populates="media_variant",
+        back_populates="media",
     )
     media_links: Mapped[list["MediaLink"]] = relationship(
-        back_populates="media_link",
+        back_populates="media",
     )
 
 
@@ -70,7 +70,7 @@ class MediaVariant(Base):
     additional_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
 
     media: Mapped["Media"] = relationship(
-        back_populates="media",
+        back_populates="media_variants",
     )
 
 
@@ -108,5 +108,5 @@ class MediaLink(Base):
     sort_order: Mapped[int] = mapped_column(nullable=False)
 
     media: Mapped["Media"] = relationship(
-        back_populates="media",
+        back_populates="media_variant",
     )
