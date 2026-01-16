@@ -1,4 +1,5 @@
 import logging
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -15,7 +16,7 @@ categories_router = APIRouter(
 
 
 @categories_router.get("/", response_model=CategoriesAll)
-async def categories(cat_repo: CategoryRepository = Depends(CategoryRepository)):  # noqa
+async def categories(cat_repo: Annotated[CategoryRepository, Depends(CategoryRepository)]):
     """All categories endpoint"""
     logger.info("Receiving all categories")
     try:
