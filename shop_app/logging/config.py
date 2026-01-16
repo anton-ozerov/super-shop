@@ -55,6 +55,16 @@ LOGGING_CONFIG = {
             "level": "INFO",
             "propagate": False,
         },
+        "httpx": {
+            "handlers": ["default", "access_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "httpcore": {
+            "handlers": ["default", "access_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
     },
 }
 
