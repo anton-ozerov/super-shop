@@ -22,6 +22,6 @@ class Group(Base):
     name: Mapped[str | None] = mapped_column(nullable=True)
 
     products: Mapped[list["Product"]] = relationship(
-        back_populates="product",
+        back_populates="groups",
         secondary="group_product_assignment",
     )
