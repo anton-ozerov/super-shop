@@ -32,7 +32,7 @@ class Product(Base):
     additional_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
 
     groups: Mapped[list["Group"]] = relationship(
-        back_populates="group",
+        back_populates="products",
         secondary="group_product_assignment",
     )
     categories: Mapped[list["Category"]] = relationship(
@@ -40,21 +40,21 @@ class Product(Base):
         secondary="product_category_assignment",
     )
     tags: Mapped[list["Tag"]] = relationship(
-        back_populates="tag",
+        back_populates="products",
         secondary="product_tag_assignment",
     )
     marks: Mapped[list["Mark"]] = relationship(
-        back_populates="mark",
+        back_populates="products",
         secondary="product_mark_assignment",
     )
     product_characteristics: Mapped[list["ProductCharacteristic"]] = relationship(
-        back_populates="product_characteristic",
+        back_populates="product",
     )
     product_parameters: Mapped[list["ProductParameter"]] = relationship(
-        back_populates="product_parameter",
+        back_populates="product",
     )
     product_descriptions: Mapped[list["ProductDescription"]] = relationship(
-        back_populates="product_description",
+        back_populates="product",
     )
 
 
@@ -80,7 +80,7 @@ class ProductDescription(Base):
     sort_order: Mapped[int] = mapped_column(nullable=False)
 
     product: Mapped["Product"] = relationship(
-        back_populates="product",
+        back_populates="product_descriptions",
     )
 
 
@@ -115,10 +115,10 @@ class ProductParameter(Base):
     additional_info: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
 
     product: Mapped["Product"] = relationship(
-        back_populates="product",
+        back_populates="product_parameters",
     )
     reviews: Mapped[list["Review"]] = relationship(
-        back_populates="review",
+        back_populates="product_parameter",
     )
 
 
@@ -164,8 +164,8 @@ class ProductCharacteristic(Base):
     )
 
     unit_measurement: Mapped["UnitMeasurement"] = relationship(
-        back_populates="unit_measurement",
+        back_populates="product_characteristics",
     )
     product: Mapped["Product"] = relationship(
-        back_populates="product",
+        back_populates="product_characteristics",
     )
