@@ -2,7 +2,7 @@ import logging
 
 from fastapi import APIRouter
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 health_router = APIRouter(
     tags=["health"],

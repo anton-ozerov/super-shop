@@ -15,7 +15,7 @@ LOGGING_CONFIG = {
     },
     "formatters": {
         "json": {
-            "()": "pythonjsonlogger.jsonlogger.JsonFormatter",
+            "()": "pythonjsonlogger.json.JsonFormatter",
             "format": ("%(asctime)s %(levelname)s %(name)s %(message)s %(request_id)s"),
         }
     },
@@ -51,6 +51,16 @@ LOGGING_CONFIG = {
             "level": "INFO" if ENVIRONMENT == "prod" else "DEBUG",
         },
         "access": {
+            "handlers": ["default", "access_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "httpx": {
+            "handlers": ["default", "access_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "httpcore": {
             "handlers": ["default", "access_file"],
             "level": "INFO",
             "propagate": False,
