@@ -1,7 +1,7 @@
 import uuid
 from typing import TYPE_CHECKING
 
-from sqlalchemy import text
+from sqlalchemy import String, text
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -20,7 +20,8 @@ class Mark(Base):
         server_default=text("gen_random_uuid()"),
     )
     name: Mapped[str] = mapped_column(nullable=False)
-    color_code: Mapped[str] = mapped_column(default="#FFFFFF", nullable=False)
+    banner_color_code: Mapped[str] = mapped_column(String(8), default="#FFFFFF", nullable=False)
+    text_color_code: Mapped[str] = mapped_column(String(8), default="#000000", nullable=False)
     is_visible: Mapped[bool] = mapped_column(default=True, nullable=False)
 
     products: Mapped[list["Product"]] = relationship(
