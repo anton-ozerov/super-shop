@@ -17,18 +17,20 @@ categories_router = APIRouter(
 
 
 @categories_router.get("/", response_model=CategoriesAll)
-async def categories(session: Annotated[AsyncSession, Depends(get_async_session)]):
-    """All categories endpoint"""
+async def categories(
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    page: int | None = 1,
+    per_page: int | None = 10,
+):
+    """All categories endpoint with pagination"""
     logger.debug("Receiving all categories")
     try:
         cat_service = CategoryService(session=session)
-        cats = await cat_service.get_all_categories()
-        if cats is None:
-            return CategoriesAll(status=True, message="No categories found", categories=[], total_count=0)
+        cats = await cat_service.get_all_categories(page, per_page)
         return cats
     except Exception as e:
         logger.error(
-            "Failed to receive all categories",
+            "Failed to receive categories",
             exc_info=True,
             extra={
                 "error_message": str(e),
