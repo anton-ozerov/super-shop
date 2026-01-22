@@ -2,6 +2,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+from .pagination_schemas import PaginationSchema
+
 
 class CategoryOut(BaseModel):
     id: UUID = Field(
@@ -24,6 +26,9 @@ class CategoryOut(BaseModel):
 
 class CategoriesAll(BaseModel):
     status: bool = True
+    pagination: PaginationSchema = Field(
+        ...,
+        description="Pagination description",
+    )
     message: str = "All categories received successfully"
     categories: list[CategoryOut] = []
-    total_count: int = 0
