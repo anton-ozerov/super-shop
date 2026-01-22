@@ -8,10 +8,18 @@ class CategoryService:
     def __init__(self, session: AsyncSession):
         self.cat_repo: CategoryRepository = CategoryRepository(session=session)
 
-    async def get_all_categories(self) -> CategoriesAll:
-        cats = await self.cat_repo.get_all_categories()
+    async def get_all_categories(self, page, per_page) -> CategoriesAll:
+        cats, pagination = await self.cat_repo.get_all_categories(page, per_page)
         if cats is None:
-            return CategoriesAll(status=True, message="No categories found", categories=[], total_count=0)
+            return CategoriesAll(
+                status=True,
+                pagination=pagination,
+                message="No categories found",
+                categories=[],
+            )
         return CategoriesAll(
-            status=True, message=f"Found {len(cats)} categories", categories=cats, total_count=len(cats)
+            status=True,
+            pagination=pagination,
+            message=f"Found {len(cats)} categories",
+            categories=cats,
         )
