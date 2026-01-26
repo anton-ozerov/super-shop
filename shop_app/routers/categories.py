@@ -1,7 +1,7 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from shop_app.database import get_async_session
@@ -19,8 +19,8 @@ categories_router = APIRouter(
 @categories_router.get("/", response_model=CategoriesAll)
 async def categories(
     session: Annotated[AsyncSession, Depends(get_async_session)],
-    page: int = 1,
-    per_page: int = 10,
+    page: Annotated[int, Query(ge=1, description="Page number")] = 1,
+    per_page: Annotated[int, Query(ge=1, le=100, description="Count items per page")] = 10,
 ):
     """All categories endpoint with pagination"""
     logger.debug("Receiving all categories")
