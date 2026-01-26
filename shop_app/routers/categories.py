@@ -20,7 +20,7 @@ categories_router = APIRouter(
 async def categories(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     page: Annotated[int, Query(ge=1, description="Page number")] = 1,
-    per_page: Annotated[int, Query(ge=1, le=100, description="Count items per page")] = 10,
+    per_page: Annotated[int, Query(ge=1, le=100, description="Number of items per page")] = 10,
 ):
     """All categories endpoint with pagination"""
     logger.debug("Receiving all categories")
