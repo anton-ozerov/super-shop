@@ -19,8 +19,8 @@ categories_router = APIRouter(
 @categories_router.get("/", response_model=CategoriesAll)
 async def categories(
     session: Annotated[AsyncSession, Depends(get_async_session)],
-    page: int | None = 1,
-    per_page: int | None = 10,
+    page: int = 1,
+    per_page: int = 10,
 ):
     """All categories endpoint with pagination"""
     logger.debug("Receiving all categories")
