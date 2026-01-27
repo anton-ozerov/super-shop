@@ -1,7 +1,7 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from shop_app.database import get_async_session
@@ -19,7 +19,9 @@ router = APIRouter(
 
 @router.get("/", response_model=GetProductsResponseSchema)
 async def get_all_not_deleted_products(
-    session: Annotated[AsyncSession, Depends(get_async_session)], page: int = 1, per_page: int = 10
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    page: Annotated[int, Query(ge=1, description="Page number")] = 1,
+    per_page: Annotated[int, Query(ge=1, le=100, description="Number of items per page")] = 10,
 ):
     """Endpoint to get not deleted products"""
     logger.debug(
