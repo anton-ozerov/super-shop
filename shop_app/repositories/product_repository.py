@@ -1,6 +1,6 @@
 import logging
 
-from sqlalchemy import func, select
+from sqlalchemy import asc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -24,6 +24,7 @@ class ProductRepository:
                 select(Product)
                 .options(selectinload(Product.marks))
                 .where(Product.is_deleted.is_(False))
+                .order_by(asc(Product.sort_order), asc(Product.name))
                 .offset((page - 1) * per_page)
                 .limit(per_page)
             )
