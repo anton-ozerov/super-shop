@@ -11,7 +11,7 @@ class ProductOut(BaseModel):
     id: str = Field(..., description="Unique identifier of the user in UUIDv4 format")
     name: str = Field(..., description="Name of the product")
     description: str | None = Field(None, description="Description of the product")
-    is_deleted: bool = Field(..., description="Indicates if the product is deleted")
+
     marks: list[MarkOut] = Field(..., description="List of marks associated with the product")
 
     @field_validator("id", mode="before")
