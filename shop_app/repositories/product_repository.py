@@ -40,7 +40,7 @@ class ProductRepository:
                 logs_extra["current_count"] = len(products)
                 logger.info("Not deleted products found in the database", extra=logs_extra)
                 return RepositoryGetNotDeletedProducts(
-                    products=[ProductOut.model_validate(product) for product in products],
+                    products=[ProductOut.model_validate(product, from_attributes=True) for product in products],
                     total_count=total_count,
                     current_count=len(products),
                 )
