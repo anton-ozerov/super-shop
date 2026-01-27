@@ -36,7 +36,7 @@ class ProductRepository:
             logs_extra["total_count"] = total_count
 
             products = pagination_result.scalars().all()
-            if products:
+            if total_count:
                 logs_extra["current_count"] = len(products)
                 logger.info("Not deleted products found in the database", extra=logs_extra)
                 return RepositoryGetNotDeletedProducts(
