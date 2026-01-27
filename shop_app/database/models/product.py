@@ -106,8 +106,8 @@ class ProductParameter(Base):
     value: Mapped[str] = mapped_column(nullable=False)
     price: Mapped[int] = mapped_column(nullable=False)
     old_price: Mapped[int] = mapped_column(nullable=True)
-    quantity_in_warehouse: Mapped[int] = mapped_column(nullable=False)
-    quantity_in_postpone: Mapped[int] = mapped_column(nullable=False)
+    quantity_in_warehouse: Mapped[int] = mapped_column(nullable=False)  # количество на складе
+    quantity_in_postpone: Mapped[int] = mapped_column(nullable=False)  # количество в отложенных
     is_infinite: Mapped[bool] = mapped_column(default=True, nullable=False)
     is_disabled: Mapped[bool] = mapped_column(default=False, nullable=False)
     is_deleted: Mapped[bool] = mapped_column(default=False, nullable=False)

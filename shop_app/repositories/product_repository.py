@@ -22,7 +22,10 @@ class ProductRepository:
             logger.info("Fetching not deleted products from the database", extra=logs_extra)
             main_query = (
                 select(Product)
-                .options(selectinload(Product.marks))
+                .options(
+                    selectinload(Product.marks),
+                    selectinload(Product.product_parameters),
+                )
                 .where(Product.is_deleted.is_(False))
                 .order_by(asc(Product.sort_order), asc(Product.name))
                 .offset((page - 1) * per_page)

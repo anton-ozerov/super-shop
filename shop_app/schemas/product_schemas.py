@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, field_validator
 from shop_app.schemas._validating_id_as_uuid import validate_id_as_uuid
 from shop_app.schemas.mark_schemas import MarkOut
 from shop_app.schemas.pagination_schemas import PaginationSchema
+from shop_app.schemas.product_parameters_schemas import ProductParameterOut
 
 
 class ProductOut(BaseModel):
@@ -13,6 +14,9 @@ class ProductOut(BaseModel):
     description: str | None = Field(None, description="Description of the product")
 
     marks: list[MarkOut] = Field(..., description="List of marks associated with the product")
+    product_parameters: list[ProductParameterOut] = Field(
+        ..., description="List of parameters associated with the product"
+    )
 
     @field_validator("id", mode="before")
     @classmethod
