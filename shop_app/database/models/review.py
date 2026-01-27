@@ -49,8 +49,8 @@ class Review(Base):
     comment: Mapped[str | None] = mapped_column(nullable=True)
 
     product_parameter: Mapped["ProductParameter"] = relationship(
-        back_populates="product_parameter",
+        back_populates="reviews",
     )
     user: Mapped["User"] = relationship(
-        back_populates="user",
+        back_populates="reviews",
     )

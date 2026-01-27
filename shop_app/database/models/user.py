@@ -30,12 +30,12 @@ class User(Base):
     is_deleted: Mapped[bool] = mapped_column(default=False, nullable=False)
 
     reviews: Mapped[list["Review"]] = relationship(
-        back_populates="review",
+        back_populates="user",
     )
     orders: Mapped[list["Order"]] = relationship(
-        back_populates="order",
+        back_populates="user",
     )
     promocodes: Mapped[list["Promocode"]] = relationship(
-        back_populates="promocode",
+        back_populates="users",
         secondary="user_promocode_assignment",
     )

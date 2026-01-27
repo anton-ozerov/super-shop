@@ -23,6 +23,6 @@ class Tag(Base):
     is_visible: Mapped[bool] = mapped_column(nullable=False)
 
     products: Mapped[list["Product"]] = relationship(
-        back_populates="product",
+        back_populates="tags",
         secondary="product_tag_assignment",
     )

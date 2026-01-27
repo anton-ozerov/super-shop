@@ -27,5 +27,5 @@ class Delivery(Base):
     foreign_id: Mapped[str | None] = mapped_column(nullable=True)
 
     order: Mapped["Order"] = relationship(
-        back_populates="order",
+        back_populates="delivery",
     )

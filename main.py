@@ -6,7 +6,7 @@ from fastapi import FastAPI
 
 from shop_app.logging.config import setup_logging
 from shop_app.middleware import access_log_middleware, request_id_middleware
-from shop_app.routers import health_router, products_router
+from shop_app.routers import categories_router, health_router, products_router
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -39,6 +39,7 @@ def create_app() -> FastAPI:
     # routers
     app_.include_router(health_router)
     app_.include_router(products_router)
+    app_.include_router(categories_router)
 
     return app_
 

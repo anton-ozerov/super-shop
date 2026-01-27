@@ -25,6 +25,6 @@ class Mark(Base):
     is_visible: Mapped[bool] = mapped_column(default=True, nullable=False)
 
     products: Mapped[list["Product"]] = relationship(
-        back_populates="product",
+        back_populates="marks",
         secondary="product_mark_assignment",
     )

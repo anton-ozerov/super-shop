@@ -26,5 +26,5 @@ class Payment(Base):
     system: Mapped[str] = mapped_column(nullable=False)
 
     order: Mapped["Order"] = relationship(
-        back_populates="order",
+        back_populates="payment",
     )
