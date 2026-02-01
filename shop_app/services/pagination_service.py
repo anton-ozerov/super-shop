@@ -13,17 +13,6 @@ def get_pagination(
     current_items: int,
 ) -> PaginationSchema:
     """Get pagination details based on total items, items per page, and current page"""
-    if total_items < 1:
-        return PaginationSchema(
-            page=page,
-            total_pages=0,
-            per_page=per_page,
-            total_items=0,
-            current_items=0,
-            has_next=False,
-            has_previous=False,
-        )
-
     total_pages = ceil(total_items / per_page)
 
     has_next = page < total_pages
