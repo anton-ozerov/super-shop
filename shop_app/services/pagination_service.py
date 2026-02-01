@@ -33,6 +33,20 @@ def get_pagination(
                 "theoretical_count_items": current_items_in_theory,
             },
         )
+    logger.debug(
+        "Pagination calculated",
+        extra={
+            "service": "pagination_service",
+            "method": "get_pagination",
+            "total_items": total_items,
+            "per_page": per_page,
+            "page": page,
+            "current_items": current_items,
+            "total_pages": total_pages,
+            "has_next": has_next,
+            "has_previous": has_previous,
+        },
+    )
 
     return PaginationSchema(
         page=page,
