@@ -1,7 +1,14 @@
+import os
+
 import pytest
+from dotenv import load_dotenv
 from httpx import ASGITransport, AsyncClient
 
-from main import create_app
+load_dotenv(".test.env", override=True)
+
+assert str(os.getenv("ENVIRONMENT")) == "TEST"
+
+from main import create_app  # noqa
 
 
 @pytest.fixture(scope="session")
