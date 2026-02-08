@@ -23,15 +23,15 @@ services:
     container_name: shop_db_test
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${TEST_DB_NAME}
+      POSTGRES_USER: ${TEST_DB_USER}
+      POSTGRES_PASSWORD: ${TEST_DB_PASSWORD}
     volumes:
       - postgres_data_test:/var/lib/postgresql/data
     ports:
-      - "${DB_PORT}:5432"
+      - "${TEST_DB_PORT}:5432"
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}" ]
+      test: [ "CMD", "pg_isready", "-U", "${TEST_DB_USER}", "-d", "${TEST_DB_NAME}" ]
       interval: 5s
       timeout: 2s
       retries: 10
