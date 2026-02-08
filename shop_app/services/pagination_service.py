@@ -29,6 +29,7 @@ def get_pagination(
     has_previous = (page > 1) and (page <= total_pages + 1)
 
     current_items_in_theory = min(per_page, total_items - (page - 1) * per_page)
+    current_items_in_theory = max(0, current_items_in_theory)
 
     if current_items != current_items_in_theory:
         logger.warning(
