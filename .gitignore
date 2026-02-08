@@ -3,7 +3,6 @@
 
 .env
 .env.local
-.test.env
 .pytest_cache
 /logs
 .ruff_cache
