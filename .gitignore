@@ -12,3 +12,4 @@
 *.pyo
 *.pyd
 __pypackages__/
+*.egg-info/
